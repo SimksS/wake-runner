@@ -1,8 +1,8 @@
-# wake-cli
+# wake-runner
 
 CLI to start Wake storefront projects from the project root.
 
-`wake-cli` automates two common tasks in Wake projects:
+`wake-runner` automates two common tasks in Wake projects:
 
 - Start `fbits.storefront` using the token from `Configs/settings.json`
 - Start `tailwindcss --watch` for every `input*.css` file inside `Assets/CSS/`
@@ -11,14 +11,14 @@ CLI to start Wake storefront projects from the project root.
 
 - Node.js installed
 - `fbits.storefront` installed on your machine and available in your PATH
-- Tailwind CSS installed either globally in your PATH or locally in the Wake project through npm
+- Tailwind CSS **3.4.18** installed on your machine (via standalone CLI in PATH or npm)—required for compatibility with the [Wake template padrão](https://wakecommerce.readme.io/docs/template-padrao#tailwindcss)
 - A Wake project containing:
   - `Configs/settings.json`
   - `Assets/CSS/`
 
 ## External tools
 
-Before using `wake-cli`, install the required CLIs on your machine.
+Before using `wake-runner`, install the required CLIs on your machine.
 
 ### `fbits.storefront`
 
@@ -30,26 +30,32 @@ Follow the official Wake Commerce installation guide for your operating system:
 
 After installation, make sure `fbits.storefront` is available from your terminal.
 
-### Tailwind CSS
+### Tailwind CSS (v3.4.18)
 
-`wake-cli` supports two Tailwind installation modes:
+The default Wake template uses Tailwind CSS and recommends **version 3.4.18**. You must have this version installed. See the [Wake Commerce – Template Padrão (TailwindCSS)](https://wakecommerce.readme.io/docs/template-padrao#tailwindcss) documentation for details.
 
-1. Global CLI available in your PATH:
+You can install Tailwind in either of these ways:
 
-```bash
-npm install -g tailwindcss
-```
+1. **Standalone CLI (recommended in Wake docs)**  
+   Download the [Tailwind CSS CLI release v3.4.18](https://github.com/tailwindlabs/tailwindcss/releases/tag/v3.4.18), add the binary to your system PATH, and ensure the `tailwindcss` command is available in your terminal.
 
-2. Local npm installation inside the Wake project:
+2. **npm**  
+   Install globally or in your Wake project:
 
-```bash
-npm install -D tailwindcss
-```
+   ```bash
+   npm install -g tailwindcss@3.4.18
+   ```
 
-When running `wake tailwind` or `wake`, the CLI will:
+   Or locally in the Wake project:
 
-- use the local npm Tailwind installation when `node_modules/.bin/tailwindcss` exists in the current project
-- otherwise fall back to the global `tailwindcss` command from your PATH
+   ```bash
+   npm install -D tailwindcss@3.4.18
+   ```
+
+When you run `wake tailwind` or `wake`, the CLI will:
+
+- use the local npm Tailwind when `node_modules/.bin/tailwindcss` exists in the current project
+- otherwise use the global `tailwindcss` command from your PATH
 
 ## Expected project structure
 
@@ -79,7 +85,7 @@ your-wake-project/
 Install globally from npm:
 
 ```bash
-npm install -g wake-cli
+npm install -g wake-runner
 ```
 
 For local development of this package, inside the package folder:
@@ -176,7 +182,7 @@ The CLI exits with code `1` when:
 - Only files directly inside `Assets/CSS/` are scanned
 - Subdirectories are not scanned
 - The CLI uses only Node.js built-in modules
-- Tailwind can be installed globally or locally via npm in the Wake project
+- Tailwind 3.4.18 can be installed via the standalone CLI (add to PATH) or via npm (global or local in the Wake project)
 - On Windows, separate commands are exposed as `wake-storefront` and `wake-tailwind` instead of names containing `:`
 
 ## License
