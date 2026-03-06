@@ -1,0 +1,20 @@
+{
+  "name": "wake-cli",
+  "version": "1.0.0",
+  "description": "CLI to start Wake storefront projects",
+  "keywords": [
+    "wake",
+    "cli",
+    "storefront",
+    "fbits",
+    "tailwindcss",
+    "automation"
+  ],
+  "author": "Kelvin Simons",
+  "bin": {
+    "wake": "./bin/wake.js",
+    "wake-storefront": "./bin/wake-storefront.js",
+    "wake-tailwind": "./bin/wake-tailwind.js"
+  },
+  "license": "MIT"
+}
