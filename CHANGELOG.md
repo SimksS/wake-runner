@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-03-06
+
+### Added
+
+- `--help` / `-h` flag: prints all commands, flags, and usage examples to the terminal and exits.
+- Generic flag passthrough: any flag not consumed by `wake-runner` itself is forwarded to the underlying CLI. In specific modes (`wake storefront`, `wake tailwind`) flags go to the respective tool. In `wake` (all) mode, extra flags are forwarded to `fbits.storefront` only to avoid passing incompatible flags to `tailwindcss`.
+- `--no-minify` flag for `wake tailwind`, `wake-tailwind`, and `wake` commands. CSS output is minified by default; pass `--no-minify` to disable.
+
+### Fixed
+
+- In `wake` (all) mode, passthrough args were incorrectly forwarded to both `fbits.storefront` and `tailwindcss`. Extra flags are now sent only to `fbits.storefront`.
+
+### Changed
+
+- All CLI output messages and error messages translated to English for consistency with documentation.
+
 ## [1.0.1] - 2026-03-05
 
 ### Added
@@ -31,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto-detection of Tailwind: uses local npm installation (`node_modules/.bin/tailwindcss`) when available, falls back to global `tailwindcss` in PATH.
 - Fix for alternate entry points (`wake-storefront.js`, `wake-tailwind.js`) not executing the CLI when required from `wake.js`.
 
-[Unreleased]: https://github.com/SimksS/wake-runner/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/SimksS/wake-runner/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/SimksS/wake-runner/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/SimksS/wake-runner/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/SimksS/wake-runner/releases/tag/v1.0.0

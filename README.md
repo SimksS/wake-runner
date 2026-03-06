@@ -100,12 +100,21 @@ Go to your Wake project root and run one of the commands below.
 
 If you are using a local npm Tailwind installation, run these commands from the same project root where `tailwindcss` was installed.
 
+Run `wake --help` at any time to see all commands, flags, and examples directly in the terminal.
+
 ### Start everything
 
 Starts `fbits.storefront` and all Tailwind watchers:
 
 ```bash
 wake
+```
+
+Extra flags in `wake` (all) mode are forwarded to `fbits.storefront` only. Use `wake tailwind [flags]` to pass flags to `tailwindcss`:
+
+```bash
+wake --port 3000          # passes --port 3000 to fbits.storefront only
+wake --no-minify          # disables Tailwind minification only
 ```
 
 ### Start only storefront
@@ -120,6 +129,14 @@ Or:
 wake-storefront
 ```
 
+Any extra flags are forwarded directly to `fbits.storefront`:
+
+```bash
+wake storefront --port 3000
+wake storefront --port 3000 --save
+wake-storefront --port 3000
+```
+
 ### Start only Tailwind watchers
 
 Starts one watcher for each `input*.css` file found directly inside `Assets/CSS/`.
@@ -132,6 +149,27 @@ Or:
 
 ```bash
 wake-tailwind
+```
+
+CSS is minified by default. To disable minification:
+
+```bash
+wake tailwind --no-minify
+wake-tailwind --no-minify
+```
+
+Any other extra flags are forwarded directly to `tailwindcss`:
+
+```bash
+wake tailwind --content "./src/**/*.html"
+wake-tailwind --no-minify --content "./src/**/*.html"
+```
+
+### Help
+
+```bash
+wake --help
+wake -h
 ```
 
 ## CSS file mapping
@@ -150,10 +188,11 @@ Examples:
 
 - Reads `Configs/settings.json`
 - Extracts `access_token`
+- Forwards any extra flags to `fbits.storefront`
 - Runs:
 
 ```bash
-fbits.storefront --token <access_token>
+fbits.storefront --token <access_token> [extra flags]
 ```
 
 ### `wake tailwind`
@@ -161,10 +200,12 @@ fbits.storefront --token <access_token>
 - Reads files directly from `Assets/CSS/`
 - Finds files that start with `input` and end with `.css`
 - Starts one process per file
+- Minification enabled by default; pass `--no-minify` to disable
+- Forwards any extra flags (other than `--no-minify`) to `tailwindcss`
 - Uses local npm Tailwind when available, otherwise uses the global `tailwindcss` command:
 
 ```bash
-tailwindcss -i ./Assets/CSS/input.css -o ./Assets/CSS/output.css --watch
+tailwindcss -i ./Assets/CSS/input.css -o ./Assets/CSS/output.css --watch --minify [extra flags]
 ```
 
 ## Errors
@@ -184,6 +225,7 @@ The CLI exits with code `1` when:
 - The CLI uses only Node.js built-in modules
 - Tailwind 3.4.18 can be installed via the standalone CLI (add to PATH) or via npm (global or local in the Wake project)
 - On Windows, separate commands are exposed as `wake-storefront` and `wake-tailwind` instead of names containing `:`
+- Any flag not recognized by `wake-runner` (`--help`, `--no-minify`) is forwarded to the underlying CLI
 
 ## License
 
